@@ -576,6 +576,25 @@ input:focus, textarea:focus, select:focus {
   font-weight: 600;
 }
 
+.example-item__examples {
+  margin: 8px 0 4px;
+}
+
+.example-item__examples-label {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.example-item__examples-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.8;
+}
+
 .example-item__reason {
   margin: 10px 0 4px;
   font-size: 14px;

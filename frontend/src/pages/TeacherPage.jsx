@@ -64,6 +64,18 @@ function WeaknessCard({ weakness }) {
                   💡 <strong>Why:</strong> {ex.simpleReason}
                 </p>
 
+                {/* AI-generated example sentences */}
+                {ex.examples && ex.examples.length > 0 && (
+                  <div className="example-item__examples">
+                    <p className="example-item__examples-label">📖 Examples:</p>
+                    <ul className="example-item__examples-list">
+                      {ex.examples.map((sentence, j) => (
+                        <li key={j}>{sentence}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {ex.practiceTip && (
                   <p className="example-item__tip">📝 {ex.practiceTip}</p>
                 )}
