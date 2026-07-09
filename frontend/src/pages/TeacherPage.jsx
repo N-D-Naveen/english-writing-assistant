@@ -50,50 +50,88 @@ function WeaknessCard({ weakness }) {
           ) : (
             weakness.examples.map((ex, i) => (
               <div key={i} className={`example-item example-item--${ex.severity}`}>
-                <span className={`example-item__severity example-item__severity--${ex.severity}`}>
-                  {ex.severity}
-                </span>
-
-                <div className="example-item__diff">
-                  <span className="diff__wrong">{ex.wrongPart}</span>
-                  <span className="diff__arrow">→</span>
-                  <span className="diff__correct">{ex.correctPart}</span>
+                {/* Header with severity badge */}
+                <div className="example-item__header">
+                  <span className={`example-item__severity example-item__severity--${ex.severity}`}>
+                    {ex.severity}
+                  </span>
+                  {ex.originalText && (
+                    <span className="example-item__source">From your writing</span>
+                  )}
                 </div>
 
-                <p className="example-item__reason">
-                  💡 <strong>Why:</strong> {ex.simpleReason}
-                </p>
+                {/* Main correction - most important for learning */}
+                <div className="example-item__correction">
+                  <div className="correction__wrong">
+                    <span className="correction__label">Incorrect</span>
+                    <span className="correction__text">{ex.wrongPart}</span>
+                  </div>
+                  <div className="correction__arrow">→</div>
+                  <div className="correction__correct">
+                    <span className="correction__label">Correct</span>
+                    <span className="correction__text">{ex.correctPart}</span>
+                  </div>
+                </div>
 
-                {/* AI-generated example sentences */}
-                {ex.examples && ex.examples.length > 0 && (
-                  <div className="example-item__examples">
-                    <p className="example-item__examples-label">📖 Examples:</p>
-                    <ul className="example-item__examples-list">
-                      {ex.examples.map((sentence, j) => (
-                        <li key={j}>Wrong: {sentence.wrong}; Correct: {sentence.correct}</li>                        
-                      ))}
-                    </ul>
+                {/* Original context if available */}
+                {ex.originalText && (
+                  <div className="example-item__context">
+                    <span className="context__label">Original sentence:</span>
+                    <p className="context__text">"{ex.originalText}"</p>
                   </div>
                 )}
 
-                {ex.practiceTip && (
-                  <p className="example-item__tip">📝 {ex.practiceTip}</p>
+                {/* Why it matters - explanation section */}
+                <div className="example-item__explanation">
+                  <div className="explanation__icon">💡</div>
+                  <div className="explanation__content">
+                    <strong className="explanation__title">Why this matters:</strong>
+                    <p className="explanation__text">{ex.simpleReason}</p>
+                  </div>
+                </div>
+
+                {/* Grammar rule if available */}
+                {ex.rule && (
+                  <div className="example-item__rule">
+                    <span className="rule__icon">📝</span>
+                    <strong className="rule__title">Rule:</strong>
+                    <span className="rule__text">{ex.rule}</span>
+                  </div>
                 )}
 
-                {ex.originalText && (
-                  <p className="example-item__original">
-                    From your writing: "{ex.originalText}"
-                  </p>
+                {/* More examples section */}
+                {ex.examples && ex.examples.length > 0 && (
+                  <div className="example-item__more-examples">
+                    <div className="more-examples__header">
+                      <span className="more-examples__icon">📖</span>
+                      <strong className="more-examples__title">More Examples</strong>
+                    </div>
+                    <div className="more-examples__list">
+                      {ex.examples.map((sentence, j) => (
+                        <div key={j} className="more-examples__item">
+                          <div className="more-examples__pair">
+                            <span className="more-examples__wrong">{sentence.wrong}</span>
+                            <span className="more-examples__separator">→</span>
+                            <span className="more-examples__correct">{sentence.correct}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Practice tip - actionable advice */}
+                {ex.practiceTip && (
+                  <div className="example-item__practice">
+                    <span className="practice__icon">🎯</span>
+                    <strong className="practice__title">Practice Tip:</strong>
+                    <span className="practice__text">{ex.practiceTip}</span>
+                  </div>
                 )}
               </div>
             ))
           )}
 
-          {weakness.practiceTip && (
-            <div className="practice-tip-box">
-              🎯 <strong>Practice tip:</strong> {weakness.practiceTip}
-            </div>
-          )}
         </div>
       )}
     </div>

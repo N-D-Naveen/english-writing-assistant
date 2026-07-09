@@ -23,6 +23,7 @@ export default function MainPage() {
   const [score, setScore]                 = useState(null)
   const [toast, setToast]                 = useState(null)
   const [error, setError]                 = useState('')
+  const [saving, setSaving]               = useState(false)
 
   // Held in a ref so it doesn't trigger re-renders
   const pendingData = useRef(null)
@@ -76,6 +77,7 @@ export default function MainPage() {
 
   async function handleCopy() {
     if (!correctedText) return
+
     try {
       await navigator.clipboard.writeText(correctedText)
     } catch {
@@ -84,11 +86,14 @@ export default function MainPage() {
     }
 
     if (pendingData.current) {
+      setSaving(true)
       try {
         await saveData(pendingData.current)
         showToast('Saved to your learning history ✓')
       } catch {
         showToast("Couldn't save to your history. Your text was still copied.", true)
+      } finally {
+        setSaving(false)
       }
       pendingData.current = null
     } else {
@@ -165,9 +170,15 @@ export default function MainPage() {
                 {score}%
               </span>
             )}
+            {saving && (
+              <span className="saving-indicator">
+                <span className="spinner spinner--small" />
+                Saving...
+              </span>
+            )}
             {correctedText && (
-              <button className="btn--copy" onClick={handleCopy}>
-                📋 Copy
+              <button className="btn--copy" onClick={handleCopy} disabled={saving}>
+                {saving ? '📋 Copying...' : '📋 Copy'}
               </button>
             )}
           </div>
