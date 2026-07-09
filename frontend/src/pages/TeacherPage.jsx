@@ -82,7 +82,7 @@ function WeaknessCard({ weakness }) {
 
                 {ex.originalText && (
                   <p className="example-item__original">
-                    From your writing: "{ex.originalText.substring(0, 120)}{ex.originalText.length > 120 ? '...' : ''}"
+                    From your writing: "{ex.originalText}"
                   </p>
                 )}
               </div>
