@@ -131,19 +131,47 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* Input area */}
-      <div className="input-wrapper">
-        <textarea
-          className={`input-textarea ${overLimit || error ? 'input-textarea--error' : ''} ${loading ? 'input-textarea--disabled' : ''}`}
-          value={inputText}
-          onChange={e => { setInputText(e.target.value); setError('') }}
-          disabled={loading}
-          placeholder="Paste or type your text here..."
-          rows={8}
-        />
-        <span className={`word-counter ${overLimit ? 'word-counter--over' : ''}`}>
-          {wordCount} / 1,000 words
-        </span>
+      {/* Textboxes side by side */}
+      <div className="textbox-row">
+        {/* Input area */}
+        <div className="input-wrapper">
+          <label className="textbox-label">Your Text</label>
+          <textarea
+            className={`input-textarea ${overLimit || error ? 'input-textarea--error' : ''} ${loading ? 'input-textarea--disabled' : ''}`}
+            value={inputText}
+            onChange={e => { setInputText(e.target.value); setError('') }}
+            disabled={loading}
+            placeholder="Paste or type your text here..."
+            rows={8}
+          />
+          <span className={`word-counter ${overLimit ? 'word-counter--over' : ''}`}>
+            {wordCount} / 1,000 words
+          </span>
+        </div>
+
+        {/* Output area */}
+        <div className="output-wrapper">
+          <label className="textbox-label">Corrected Version</label>
+          <textarea
+            className="output-textarea"
+            value={correctedText}
+            readOnly
+            placeholder="Your corrected text will appear here..."
+            rows={8}
+          />
+          <div className="output-footer">
+            {score !== null && (
+              <span className={`score-badge ${getScoreClass(score)}`}>
+                {score}%
+              </span>
+            )}
+            {correctedText && (
+              <button className="btn--copy" onClick={handleCopy}>
+                📋 Copy
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       {error && <p className="validation-error">{error}</p>}
@@ -158,31 +186,6 @@ export default function MainPage() {
           <><span className="spinner" /> Rephrasing...</>
         ) : '✨ Rephrase'}
       </button>
-
-      {/* Output area */}
-      {correctedText && (
-        <div className="output-box">
-          <div className="output-box__header">✓ Corrected version</div>
-          <div className="output-box__body">
-            <textarea
-              className="output-textarea"
-              value={correctedText}
-              readOnly
-              rows={8}
-            />
-            <div className="output-box__footer">
-              {score !== null && (
-                <span className={`score-badge ${getScoreClass(score)}`}>
-                  {score}%
-                </span>
-              )}
-              <button className="btn--copy" onClick={handleCopy}>
-                📋 Copy
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Toast */}
       {toast && (
