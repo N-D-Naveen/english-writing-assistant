@@ -70,7 +70,7 @@ function WeaknessCard({ weakness }) {
                     <p className="example-item__examples-label">📖 Examples:</p>
                     <ul className="example-item__examples-list">
                       {ex.examples.map((sentence, j) => (
-                        <li key={j}>{sentence}</li>
+                        <li key={j}>Wrong: {sentence.wrong}; Correct: {sentence.correct}</li>                        
                       ))}
                     </ul>
                   </div>
