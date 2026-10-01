@@ -160,6 +160,7 @@ export default function MainPage() {
           <textarea
             className="output-textarea"
             value={correctedText}
+            disabled
             readOnly
             placeholder="Your corrected text will appear here..."
             rows={8}
