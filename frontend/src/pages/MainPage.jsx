@@ -159,6 +159,9 @@ export default function MainPage() {
           <label className="textbox-label">Corrected Version</label>
           <textarea
             className="output-textarea"
+            onselectstart="return false"
+            oncopy="return false"
+            oncut="return false"
             value={correctedText}
             disabled
             readOnly
